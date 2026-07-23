@@ -1,5 +1,442 @@
-<hr>vanaja<hr>
-<p> 
-A cake shop is a delightful place where freshly baked cakes, pastries, and desserts are made with love and creativity. It’s where sweet aromas fill the air, and every treat is crafted to bring joy to special moments. From birthdays to weddings, a cake shop adds a touch of sweetness to life’s celebrations.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanaja's Bakehouse | Handcrafted Cakes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cake-red': '#FF0000',
+                        'cake-cream': '#FFFDD0',
+                        'cake-brown': '#5C4033',
+                        'cake-gold': '#D4AF37'
+                    },
+                    fontFamily: {
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'sans': ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom CSS for smooth scrolling and animations */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #FAFAFA;
+        }
+        
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
 
-</p>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 209, 220, 0.5);
+        }
+
+        .cake-card {
+            transition: all 0.3s ease;
+        }
+        .cake-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #5C4033;
+            color: #fff;
+            text-align: center;
+            border-radius: 50px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 15px;
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+    </style>
+</head>
+<body class="font-sans text-cake-brown antialiased">
+
+    <header class="glass-nav fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer">
+                    <i class="fas fa-birthday-cake text-cake-pink text-3xl mr-2"></i>
+                    <span class="font-serif font-bold text-2xl tracking-wide text-cake-brown">Vanaja's <span class="text-cake-pink">Bakehouse</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-cake-pink font-medium transition">Home</a>
+                    <a href="#menu" class="text-gray-700 hover:text-cake-pink font-medium transition">Our Cakes</a>
+                    <a href="#about" class="text-gray-700 hover:text-cake-pink font-medium transition">About</a>
+                    <a href="#contact" class="text-gray-700 hover:text-cake-pink font-medium transition">Contact</a>
+                </nav>
+
+                <!-- Icons (Search & Cart) -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <button class="text-gray-600 hover:text-cake-pink transition"><i class="fas fa-search"></i></button>
+                    <button class="text-gray-600 hover:text-cake-pink transition relative" onclick="showToast('Shopping cart opened!')">
+                        <i class="fas fa-shopping-bag text-xl"></i>
+                        <span class="absolute -top-2 -right-2 bg-cake-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">2</span>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-cake-brown hover:text-cake-pink focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-cake-pink hover:bg-gray-50 rounded-md">Home</a>
+                <a href="#menu" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-cake-pink hover:bg-gray-50 rounded-md">Our Cakes</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-cake-pink hover:bg-gray-50 rounded-md">About</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-cake-pink hover:bg-gray-50 rounded-md">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="relative pt-24 pb-12 lg:pt-32 lg:pb-24 overflow-hidden bg-gradient-to-br from-cake-cream via-white to-cake-pink/30 min-h-[90vh] flex items-center">
+        <!-- Background decorative elements -->
+        <div class="absolute top-20 left-10 w-32 h-32 bg-cake-pink rounded-full mix-blend-multiply filter blur-2xl opacity-50 float-animation"></div>
+        <div class="absolute bottom-20 right-10 w-40 h-40 bg-yellow-200 rounded-full mix-blend-multiply filter blur-2xl opacity-50 float-animation" style="animation-delay: 2s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+                
+                <!-- Hero Text -->
+                <div class="lg:w-1/2 text-center lg:text-left pt-10 lg:pt-0">
+                    <span class="text-cake-gold font-semibold tracking-wider uppercase text-sm mb-4 block">Welcome to your sweet escape</span>
+                    <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                        Handcrafted <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cake-pink to-rose-400">Happiness</span> <br>
+                        in Every Bite
+                    </h1>
+                    <p class="text-gray-600 text-lg mb-8 max-w-lg mx-auto lg:mx-0">
+                        Made with love by Vanaja. We bake custom, eggless, and premium cakes for all your special occasions. Every slice tells a sweet story.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#menu" class="px-8 py-3 bg-cake-brown text-white font-medium rounded-full shadow-lg hover:bg-opacity-90 transition transform hover:scale-105 w-full sm:w-auto text-center">
+                            Explore Cakes
+                        </a>
+                        <a href="#contact" class="px-8 py-3 bg-white border-2 border-cake-pink text-cake-pink font-medium rounded-full shadow-lg hover:bg-cake-pink hover:text-white transition transform hover:scale-105 w-full sm:w-auto text-center">
+                            Custom Order
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 mt-12 lg:mt-0 relative flex justify-center">
+                    <div class="relative w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] float-animation">
+                        <!-- Custom CSS Cake placeholder (Using an emoji inside a beautiful styled div for placeholder) -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-pink-100 to-white rounded-full shadow-2xl flex items-center justify-center border-8 border-white overflow-hidden">
+                            <!-- In a real site, replace this with `<img src="your-cake-image.jpg">` -->
+                            <span class="text-[150px]">🎂</span>
+                        </div>
+                        
+                        <!-- Floating badge -->
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl flex items-center space-x-3 float-animation" style="animation-delay: 1s;">
+                            <div class="bg-yellow-100 text-yellow-600 p-2 rounded-full">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-medium">Customer Rating</p>
+                                <p class="font-bold text-lg">5.0 / 5.0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6 rounded-2xl bg-cake-cream/30 border border-cake-cream hover:shadow-lg transition">
+                    <i class="fas fa-leaf text-4xl text-green-500 mb-4"></i>
+                    <h3 class="font-serif font-bold text-xl mb-2">100% Eggless</h3>
+                    <p class="text-gray-500 text-sm">Deliciously soft and fluffy cakes, made completely vegetarian.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-cake-pink/10 border border-cake-pink/20 hover:shadow-lg transition">
+                    <i class="fas fa-paint-brush text-4xl text-cake-pink mb-4"></i>
+                    <h3 class="font-serif font-bold text-xl mb-2">Custom Designs</h3>
+                    <p class="text-gray-500 text-sm">Your imagination, our creation. Unique cakes for unique people.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-yellow-50 border border-yellow-100 hover:shadow-lg transition">
+                    <i class="fas fa-truck text-4xl text-cake-gold mb-4"></i>
+                    <h3 class="font-serif font-bold text-xl mb-2">Fresh Delivery</h3>
+                    <p class="text-gray-500 text-sm">Baked fresh to order and delivered safely to your doorstep.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="py-20 bg-[#FFFBF0]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-cake-pink font-bold uppercase tracking-widest text-sm">Fresh from the oven</span>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mt-2 mb-4">Our Signature Cakes</h2>
+                <div class="w-24 h-1 bg-cake-pink mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Grid Layout for Cakes -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Cake Item 1 -->
+                <div class="cake-card bg-white rounded-3xl overflow-hidden shadow-md">
+                    <div class="h-48 bg-pink-50 flex items-center justify-center text-6xl relative">
+                        🍓
+                        <span class="absolute top-4 right-4 bg-white px-2 py-1 rounded-lg text-xs font-bold text-cake-pink shadow">Bestseller</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-xl font-serif">Strawberry Dream</h3>
+                            <span class="font-bold text-cake-brown">₹850</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">Fresh strawberries with fresh cream and eggless vanilla sponge.</p>
+                        <button onclick="addToCart('Strawberry Dream')" class="w-full py-2 bg-cake-pink/20 text-cake-pink font-semibold rounded-xl hover:bg-cake-pink hover:text-white transition">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Cake Item 2 -->
+                <div class="cake-card bg-white rounded-3xl overflow-hidden shadow-md">
+                    <div class="h-48 bg-amber-50 flex items-center justify-center text-6xl">
+                        🍫
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-xl font-serif">Choco Truffle</h3>
+                            <span class="font-bold text-cake-brown">₹950</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">Rich, dense, and gooey chocolate loaded with premium cocoa.</p>
+                        <button onclick="addToCart('Choco Truffle')" class="w-full py-2 bg-cake-pink/20 text-cake-pink font-semibold rounded-xl hover:bg-cake-pink hover:text-white transition">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Cake Item 3 -->
+                <div class="cake-card bg-white rounded-3xl overflow-hidden shadow-md">
+                    <div class="h-48 bg-red-50 flex items-center justify-center text-6xl">
+                        🍰
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-xl font-serif">Red Velvet</h3>
+                            <span class="font-bold text-cake-brown">₹1050</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">Classic red velvet sponge with our signature cream cheese frosting.</p>
+                        <button onclick="addToCart('Red Velvet')" class="w-full py-2 bg-cake-pink/20 text-cake-pink font-semibold rounded-xl hover:bg-cake-pink hover:text-white transition">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Cake Item 4 -->
+                <div class="cake-card bg-white rounded-3xl overflow-hidden shadow-md">
+                    <div class="h-48 bg-yellow-50 flex items-center justify-center text-6xl">
+                        🧁
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-xl font-serif">Mango Burst</h3>
+                            <span class="font-bold text-cake-brown">₹900</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">Seasonal special! Real Alphonso mango pulp infused in soft cake.</p>
+                        <button onclick="addToCart('Mango Burst')" class="w-full py-2 bg-cake-pink/20 text-cake-pink font-semibold rounded-xl hover:bg-cake-pink hover:text-white transition">Add to Cart</button>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-12 text-center">
+                <button onclick="showToast('Loading more delicious cakes...')" class="inline-flex items-center text-cake-brown font-semibold hover:text-cake-pink transition">
+                    View Full Menu <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center bg-cake-pink/5 rounded-[40px] p-8 md:p-12 border border-cake-pink/20">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 relative">
+                    <!-- Decorative image placeholder for the owner -->
+                    <div class="w-64 h-64 md:w-80 md:h-80 mx-auto bg-gradient-to-br from-cake-cream to-cake-pink rounded-[40px] shadow-lg transform rotate-3 flex items-center justify-center text-8xl overflow-hidden border-4 border-white">
+                        👩‍🍳
+                    </div>
+                    <div class="absolute top-0 right-10 text-6xl opacity-30 float-animation">✨</div>
+                </div>
+                <div class="lg:w-1/2 lg:pl-12 text-center lg:text-left">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">The Story Behind the Sweetness</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Hello! I'm <strong>Vanaja</strong>. What started as a small passion for baking in my home kitchen has now blossomed into this wonderful bakehouse. I believe that a cake is not just a dessert; it's the centerpiece of your memories.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Every cake we bake is crafted with the finest ingredients, a lot of love, and absolutely zero compromises on quality. Whether it's a simple birthday or a grand wedding, we are here to make your day extra special with our eggless wonders.
+                    </p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Signature_placeholder.svg" alt="Vanaja Signature" class="h-12 mx-auto lg:mx-0 opacity-50 filter grayscale">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-cake-brown text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div>
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">Let's Bake Memories Together</h2>
+                    <p class="text-gray-300 mb-8">Have a special design in mind? Or need a cake urgently? Reach out to us and we'll make it happen.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-cake-pink">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Our Shop</h4>
+                                <p class="text-gray-300 text-sm">1.Ratna school street, Muthukrishnapuram, Kadayanallur 627751</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-cake-pink">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>u
+                            <div>
+                                <h4 class="font-semibold text-lg">Call Us</h4>
+                                <p class="text-gray-300 text-sm">+91 6382141958</p>
+                            </div>
+                            </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-cake-pink">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Follow Us</h4>
+                                <p class="text-gray-300 text-sm">@vanajas.bakehouse</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 text-gray-800 shadow-2xl">
+                    <h3 class="font-serif text-2xl font-bold mb-6">Send a Request</h3>
+                    <form onsubmit="submitForm(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                            <input type="text" required class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cake-pink focus:border-transparent transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" required class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cake-pink focus:border-transparent transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Cake Details / Occasion</label>
+                            <textarea rows="3" required class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cake-pink focus:border-transparent transition"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-cake-brown text-white font-bold rounded-xl hover:bg-opacity-90 transition shadow-lg mt-2">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#4A3228] text-gray-400 py-8 border-t border-white/10 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <i class="fas fa-birthday-cake text-cake-pink text-2xl mb-4"></i>
+            <p class="mb-2">© 2026 Vanaja's Bakehouse. All rights reserved.</p>
+            <p class="text-sm">Made with ❤️ for sweet moments.</p>
+        </div>
+    </footer>
+
+    <!-- Custom Toast Notification Box -->
+    <div id="toast">Message goes here</div>
+
+    <script>
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Add shadow to navbar on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                nav.classList.add('shadow-sm');
+            } else {
+                nav.classList.remove('shadow-sm');
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Custom Toast Notification Function (Replaces alert())
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.className = "show";
+            
+            // Hide toast after 3 seconds
+            setTimeout(function(){ 
+                toast.className = toast.className.replace("show", ""); 
+            }, 3000);
+        }
+
+        // Add to cart functionality
+        function addToCart(cakeName) {
+            showToast('🎂 Added ' + cakeName + ' to your cart!');
+        }
+
+        // Form Submission logic
+        function submitForm(event) {
+            event.preventDefault();
+            showToast('Thank you! Your request has been sent to Vanaja.');
+            event.target.reset(); // Clear the form
+        }
+    </script>
+</body>
+</html>
